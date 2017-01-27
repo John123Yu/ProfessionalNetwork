@@ -1,0 +1,35 @@
+<style type="text/css">
+	.error {
+		color: red;
+	}
+	.success {
+		color: green;
+	}
+</style>
+<h1>Register</h1>
+<% flash.each do |key, value| %>
+	<% if value.is_a?(Array) %>
+		<% value.each do |i| %>
+			<%= content_tag :div, i, class: "flash error" %>
+		<% end %>
+	<% else %> 
+		<%= content_tag :div, value, class: "flash #{key}" %>
+	<% end %>
+<% end %>
+<form action = '/users' method = "post" >
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	Name :<input id = "Name" type = "text" name = "user[name]"><br>
+	Email:<input id = "Email" type = "text" name = "user[email]"><br>
+	Description: <textarea name = "user[description]"></textarea><br>
+	Password:<input id = "Password" type = "password" name = "user[password]"><br>
+	Password Confirmation: <input id = "Confirm Password" type = "password" name ='user[confirm_password]'><br>
+	<input type = "submit" value = "Register">
+</form>
+
+<h1>Login</h1>
+<form action = '/login/' method = "post" >
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	Email:<input id = "Email" type = "text" name = "user[email]">
+	Password:<input id = "Password" type = "password" name = "user[password]">
+	<input type = "submit" value = "Log In">
+</form>

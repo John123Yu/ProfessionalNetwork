@@ -1,0 +1,26 @@
+<a href="/logout">Logout</a>
+<a href="/professional_profile/<%= @self.id %>">My Profile</a>
+<hr>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @leftOverFriends.each do |friend| %>
+		<tr>
+			<td><a href="/users/<%= friend.id %>"><%= friend.name %></a></td>
+			<td>
+			<form action = '/connect/<%= friend.id %>' method = "post" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type = "submit" value = "Connect">
+			</form>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>

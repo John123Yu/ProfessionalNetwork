@@ -1,0 +1,62 @@
+<style type="text/css">
+form {
+	display: inline-block;
+}
+</style>
+<h1>Hello <%= @user.name %></h1> <a href="/logout">Logout</a>
+<a href="/users">All Users</a>
+<hr>
+<h3>Here is your profile description:</h3>
+<h4><%= @user.description %></h4>
+<hr>
+<h3>Your Professional Network</h3>
+<ul>
+<% @user.friends.each do |friend| %>
+	<li><a href="/users/<%= friend.id %>"><%= friend.name %></a>
+		<form action = '/delete/<%= friend.id %>' method = "post" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type = "submit" value = "Delete">
+		</form>
+	</li>
+<% end %>
+<% @additional_friends.each do |friend| %>
+	<li><a href="/users/<%= friend.id %>"><%= friend.name %></a>
+		
+		<form action = '/delete/<%= friend.id %>' method = "post" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type = "submit" value = "Delete">
+		</form>
+
+	</li>
+<% end %>
+</ul>
+<hr>
+<h3>Invitations</h3>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @user.invited_by.each do |friend| %>
+		<tr>
+			<td><a href="/users/<%= friend.id %>"><%= friend.name %></a></td>
+			<td>
+			<form action = '/accept/<%= friend.id %>' method = "post" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type = "submit" value = "Accept">
+			</form>
+			</td>
+			<td>
+			<form action = '/ignore/<%= friend.id %>' method = "post" >
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type = "submit" value = "Ignore">
+			</form>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<hr>
